@@ -1,0 +1,52 @@
+name: Frontend CI
+
+on:
+  push: 
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16, 18, 20]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd frontend 
+          npm ci
+
+      # - name: Run tests
+      #   run: npm test
+
+      - name: Lints
+        run: |
+          cd frontend 
+          npm run lint
+
+      - name: Format
+        run: |
+          cd frontend 
+          npm run format
+
+      - name: Build
+        run: npm run build
+      
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-build-${{matrix.node-version}}
+          path: frontend/build
