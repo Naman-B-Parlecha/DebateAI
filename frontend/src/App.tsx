@@ -12,6 +12,7 @@ const ProtectedRoute = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    console.log('here')
     setIsLoading(false)
   }, [auth?.isAuthenticated])
 
