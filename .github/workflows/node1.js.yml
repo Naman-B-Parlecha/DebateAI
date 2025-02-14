@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x, 22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,4 +28,15 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
-    - run: cd frontend && npm ci
+    - name: Clean install dependency
+      run: cd frontend && npm ci
+    
+    - name: Lints
+      run: cd frontend && npm run lint
+    
+    - name: Format
+      run: cd frontend && npm run format
+    
+    - name: Build
+      run: cd frontend && npm run build
+      
