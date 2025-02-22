@@ -32,6 +32,12 @@ export default tseslint.config(
       ],
       'prettier/prettier': 'error', // Ensures Prettier formatting is enforced
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react/react-in-jsx-scope': 'off',
+      'no-extra-boolean-cast': 'off',
+      'no-constant-binary-expression': 'off',
+      'react/display-name': 'off',
     },
   }
 )

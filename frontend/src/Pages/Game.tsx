@@ -112,7 +112,7 @@ const Game: React.FC = () => {
     ws.onclose = () => console.log("WebSocket connection closed");
 
     return () => ws.close();
-  }, [userId, handleWebSocketMessage]);
+  }, [userId]);
 
   const renderGameContent = () => (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -165,10 +165,10 @@ const Game: React.FC = () => {
             cameraOn={state.cameraOn}
             micOn={state.micOn}
             setCameraOn={(value) =>
-              setState((prev: any) => ({ ...prev, cameraOn: value }))
+              setState((prev) => ({ ...prev, cameraOn: value as boolean }))
             }
             setMicOn={(value) =>
-              setState((prev: any) => ({ ...prev, micOn: value }))
+              setState((prev) => ({ ...prev, micOn: value as boolean }))
             }
             isTurn={state.isTurn}
             turnDuration={state.turnDuration}
