@@ -20,6 +20,7 @@ const ProtectedRoute = () => {
   return auth?.isAuthenticated ? <Outlet /> : <Navigate to="/auth" replace />
 }
 
+
 function App() {
   return (
     <AuthProvider>
