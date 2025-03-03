@@ -8,12 +8,10 @@ interface LoginFormProps {
   infoMessage?: string;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({
-  startForgotPassword,
-  infoMessage,
-}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export const LoginForm: React.FC<LoginFormProps> = ({ startForgotPassword, infoMessage }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const authContext = useContext(AuthContext);
 
   if (!authContext) {
@@ -40,12 +38,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         className="mb-2"
       />
       <Input
-        type="password"
+        type={passwordVisible ? "text" : "password"}
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="mb-1"
       />
+      <div className='w-full flex justify-start items-center pl-1'>
+        <div className='w-4'>
+          <Input
+            type='checkbox'
+            checked={passwordVisible}
+            onChange={(e) => setPasswordVisible(e.target.checked)}
+          />
+        </div>
+        <div className='pl-2'>show password</div>
+      </div>
       {error && <p className="text-sm text-red-500 mb-2">{error}</p>}
       <p className="text-sm text-muted mb-4">
         Forgot your password?{" "}
@@ -67,12 +75,12 @@ interface SignUpFormProps {
   startOtpVerification: (email: string) => void;
 }
 
-export const SignUpForm: React.FC<SignUpFormProps> = ({
-  startOtpVerification,
-}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+
+export const SignUpForm: React.FC<SignUpFormProps> = ({ startOtpVerification }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [confirmPassword, setConfirmPassword] = useState('');
   const authContext = useContext(AuthContext);
 
   if (!authContext) {
@@ -103,19 +111,29 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         className="mb-2"
       />
       <Input
-        type="password"
+        type={passwordVisible ? "text" : "password"}
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="mb-2"
       />
       <Input
-        type="password"
+        type={passwordVisible ? "text" : "password"}
         placeholder="confirm password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         className="mb-4"
       />
+      <div className='w-full flex justify-start items-center pl-1'>
+        <div className='w-4'>
+          <Input
+            type='checkbox'
+            checked={passwordVisible}
+            onChange={(e) => setPasswordVisible(e.target.checked)}
+          />
+        </div>
+        <div className='pl-2'>show password</div>
+      </div>
       {error && <p className="text-sm text-red-500 mb-2">{error}</p>}
       <Button type="submit" className="w-full" disabled={loading}>
         {loading ? "Creating Account..." : "Sign Up With Email"}
@@ -237,13 +255,11 @@ interface ResetPasswordFormProps {
   handlePasswordReset: () => void;
 }
 
-export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
-  email,
-  handlePasswordReset,
-}) => {
-  const [code, setCode] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ email, handlePasswordReset }) => {
+  const [code, setCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const authContext = useContext(AuthContext);
 
   if (!authContext) {
@@ -277,19 +293,29 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
           className="w-full mb-2"
         />
         <Input
-          type="password"
+          type={passwordVisible ? "text" : "password"}
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="New Password"
           className="w-full mb-2"
         />
         <Input
-          type="password"
+          type={passwordVisible ? "text" : "password"}
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
           placeholder="Confirm New Password"
           className="w-full mb-4"
         />
+      <div className='w-full flex justify-start items-center pl-1'>
+        <div className='w-4'>
+          <Input
+            type='checkbox'
+            checked={passwordVisible}
+            onChange={(e) => setPasswordVisible(e.target.checked)}
+          />
+        </div>
+        <div className='pl-2'>show password</div>
+      </div>
         {error && <p className="text-sm text-red-500 mb-2">{error}</p>}
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Resetting Password..." : "Reset Password"}
