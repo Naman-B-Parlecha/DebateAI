@@ -31,9 +31,12 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       'prettier/prettier': 'error', // Ensures Prettier formatting is enforced
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      'react-hooks/exhaustive-deps': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
+      'react-hooks/exhaustive-deps': 'warn',
       'react/react-in-jsx-scope': 'off',
       'no-extra-boolean-cast': 'off',
       'no-constant-binary-expression': 'off',
